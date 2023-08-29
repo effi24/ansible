@@ -1,4 +1,4 @@
-- name: Install MySQL 8
+- name: Install MySQL 8 (Ubuntu)
   apt:
     name:
       - mysql-server
@@ -7,6 +7,12 @@
     update_cache: yes
   when: ansible_os_family == 'Debian'
   notify: start_enable_mysql
+
+- name: Setup repo for Mysql 5.7
+  yum:
+    name: http://repo.mysql.com/mysql80-community-release-el9-4.noarch.rpm
+    state: present
+  when: ansible_os_family == 'RedHat'  
   
 - name: Install MySQL 8 (RHEL/CentOS)
   yum:
