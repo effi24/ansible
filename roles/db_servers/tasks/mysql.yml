@@ -57,7 +57,7 @@
 
 - name: Configure MySQL root account
   community.mysql.mysql_user:
-    user: root
+    name: root
     password: '{{ mysql_root_password }}'
     plugin: mysql_native_password
     config_file: '{{ "/root/.my.cnf" if not my_cnf.changed else "" }}'
