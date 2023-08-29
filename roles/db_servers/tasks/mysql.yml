@@ -53,3 +53,5 @@
     config_file: '{{ "/root/.my.cnf" if not my_cnf.changed else "" }}'
     state: present
   become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
