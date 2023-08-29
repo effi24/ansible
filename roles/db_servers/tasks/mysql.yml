@@ -45,6 +45,12 @@
   register: my_cnf
   become: true
 
+- name: Install MySQL client library
+  pip:
+    name: MySQLdb
+    state: present
+  become: true  
+
 - name: Configure MySQL root account
   community.mysql.mysql_user:
     user: root
