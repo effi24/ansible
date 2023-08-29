@@ -1,66 +1,66 @@
-# - name: Install MySQL 8 (Ubuntu)
-#   apt:
-#     name:
-#       - mysql-server
-#       - libmysqlclient-dev
-#     state: latest
-#     update_cache: yes
-#   when: ansible_os_family == 'Debian'
-#   notify: start_enable_mysql
+- name: Install MySQL 8 (Ubuntu)
+  apt:
+    name:
+      - mysql-server
+      - libmysqlclient-dev
+    state: latest
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+  notify: start_enable_mysql
 
-# - name: DEBIAN | Configure MySQL
-#   ansible.builtin.template:
-#     src: mysqld.cnf.j2
-#     dest: /etc/mysql/mysql.conf.d/mysqld.cnf
-#     owner: 0
-#     group: 0
-#     mode: 0640
-#     validate: mysqld --defaults-file=%s --validate-config
-#     force: true
-#   notify: start_enable_mysql
-#   when: ansible_os_family == "Debian"  
+- name: DEBIAN | Configure MySQL
+  ansible.builtin.template:
+    src: mysqld.cnf.j2
+    dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+    owner: 0
+    group: 0
+    mode: 0640
+    validate: mysqld --defaults-file=%s --validate-config
+    force: true
+  notify: start_enable_mysql
+  when: ansible_os_family == "Debian"  
 
-# - name: DEBIAN | Ensure MySQL is running
-#   service:
-#     name: mysql
-#     state: started
-#     enabled: yes
-#   tags: validate
-#   when: ansible_os_family == "Debian"
+- name: DEBIAN | Ensure MySQL is running
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+  tags: validate
+  when: ansible_os_family == "Debian"
 
-# - name: Set MySQL root password
-#   ansible.builtin.set_fact:
-#     mysql_root_password: "{{ lookup('ansible.builtin.password', '/dev/null length=15') }}"
-#   when: mysql_root_password is not defined
+- name: Set MySQL root password
+  ansible.builtin.set_fact:
+    mysql_root_password: "{{ lookup('ansible.builtin.password', '/dev/null length=15') }}"
+  when: mysql_root_password is not defined
 
-# - name: Setup my.cnf file for root
-#   ansible.builtin.template:
-#     src: my.cnf.j2
-#     dest: /root/.my.cnf
-#     backup: true
-#     force: false
-#     mode: 0600
-#     owner: 0
-#     group: 0
-#   register: my_cnf
-#   become: true
+- name: Setup my.cnf file for root
+  ansible.builtin.template:
+    src: my.cnf.j2
+    dest: /root/.my.cnf
+    backup: true
+    force: false
+    mode: 0600
+    owner: 0
+    group: 0
+  register: my_cnf
+  become: true
 
-# - name: Install pip
-#   apt:
-#     name: python3-pip
-#     state: present
+- name: Install pip
+  apt:
+    name: python3-pip
+    state: present
 
-# - name: Install PyMySQL
-#   pip:
-#     name: pymysql
-#     state: present  
+- name: Install PyMySQL
+  pip:
+    name: pymysql
+    state: present  
 
-# - name: Configure MySQL root account
-#   community.mysql.mysql_user:
-#     name: root
-#     password: '{{ mysql_root_password }}'
-#     login_unix_socket: /var/run/mysqld/mysqld.sock
-#     plugin: mysql_native_password
-#     config_file: '{{ "/root/.my.cnf" if not my_cnf.changed else "" }}'
-#     state: present
-#   become: true
+- name: Configure MySQL root account
+  community.mysql.mysql_user:
+    name: root
+    password: '{{ mysql_root_password }}'
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    plugin: mysql_native_password
+    config_file: '{{ "/root/.my.cnf" if not my_cnf.changed else "" }}'
+    state: present
+  become: true
