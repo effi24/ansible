@@ -3,4 +3,4 @@
   tags:
     - mysql
   vars:
-    mysql_replication_enable: true
+    mysql_replication_enable: false
