@@ -17,8 +17,7 @@
     mode: 0640
     validate: mysqld --defaults-file=%s --validate-config
     force: true
-  notify:
-    - start_enable_mysql
+  notify: start_enable_mysql
   when: ansible_os_family == "Debian"  
 
 - name: DEBIAN | Ensure MySQL is running
@@ -46,9 +45,6 @@
     group: 0
   register: my_cnf
   become: true
-  vars:
-    _mysql_db_user: root
-    _mysql_db_password: '{{ mysql_root_password }}'
 
 - name: Configure MySQL root account
   community.mysql.mysql_user:
