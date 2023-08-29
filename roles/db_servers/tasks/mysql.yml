@@ -60,6 +60,7 @@
     login_host: 'localhost'
     login_user: 'root'
     name: root
+    host: ''
     password: '{{ mysql_root_password }}'
     plugin: mysql_native_password
     config_file: '{{ "/root/.my.cnf" if not my_cnf.changed else "" }}'
