@@ -1,0 +1,14 @@
+---
+- name: Assert usage of systemd as an init system
+  assert:
+    that: ansible_service_mgr == 'systemd'
+    msg: 'This module only works with systemd'
+
+- name: Gather services facts
+  ansible.builtin.service_facts:
+  register: services_facts
+
+- name: Fail on MySQL not running
+  assert:
+    that: services_facts.ansible_facts.services['mysql.service'].state == 'running'
+    msg: 'This module require mysql server to be running'

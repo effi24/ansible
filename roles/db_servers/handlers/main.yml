@@ -1,0 +1,11 @@
+- name: start_enable_mysql
+  service:
+    name: mysql
+    state: restarted
+    enabled: yes
+
+- name: start_enable_redis
+  service:
+    name: redis
+    state: restarted
+    enabled: yes    

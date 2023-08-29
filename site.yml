@@ -1,0 +1,6 @@
+- hosts: workstation
+  become: true
+  roles:
+    - db_server
+    - monitoring
+    - web_servers

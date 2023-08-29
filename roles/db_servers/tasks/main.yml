@@ -1,0 +1,31 @@
+- name: Install MySQL 8
+  apt:
+    name:
+      - mysql-server
+      - libmysqlclient-dev
+    state: latest
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+  notify: start_enable_mysql
+  
+- name: Install MySQL 8 (RHEL/CentOS)
+  yum:
+    name: mysql-server
+    state: latest
+  when: ansible_os_family == 'RedHat'
+  notify: start_enable_mysql
+  
+- name: Install Redis
+  apt:
+    name: redis-server
+    state: latest
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+  notify: start_enable_redis
+  
+- name: Install Redis (RHEL/CentOS)
+  yum:
+    name: redis
+    state: latest
+  when: ansible_os_family == 'RedHat'
+  notify: start_enable_redis

@@ -1,0 +1,65 @@
+---
+- tags:
+    - node_exporter
+  block:
+    - name: Setup node_exporter Service
+      ansible.builtin.template:
+        src: node_exporter.service.j2
+        dest: /etc/systemd/system/node_exporter.service
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart node_exporter
+
+    - name: Copy node_exporter Config
+      ansible.builtin.template:
+        src: node_exporter.j2
+        dest: /etc/default/node_exporter
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart node_exporter
+
+    - name: Create textfile collector dir
+      ansible.builtin.file:
+        path: '{{ node_exporter_textfile_dir }}'
+        state: directory
+        owner: '{{ _exporter_system_user }}'
+        group: '{{ _exporter_system_group }}'
+        recurse: true
+        mode: u+rwX,g+rwX,o=rX
+      when: node_exporter_textfile_dir | length > 0
+
+- tags:
+    - mysqld_exporter
+  block:
+    - name: Generate Random Password
+      ansible.builtin.set_fact:
+        _mysqld_exporter_db_password: "{{ lookup('ansible.builtin.password', '/dev/null length=15') }}"
+
+    - name: Create mysqld_exporter User Config
+      ansible.builtin.template:
+        src: my.cnf.j2
+        dest: /etc/.exporter.cnf
+        mode: 0600
+        owner: '{{ _exporter_system_user }}'
+        group: '{{ _exporter_system_group }}'
+      notify: restart mysqld_exporter
+
+    - name: Setup mysqld_exporter Service
+      ansible.builtin.template:
+        src: mysqld_exporter.service.j2
+        dest: /etc/systemd/system/mysqld_exporter.service
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart mysqld_exporter
+
+    - name: Copy mysqld_exporter Config
+      ansible.builtin.template:
+        src: mysqld_exporter.j2
+        dest: /etc/default/mysqld_exporter
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart mysqld_exporter

@@ -1,0 +1,5 @@
+- name: start_enable_prometheus
+  service:
+    name: prometheus
+    state: started
+    enabled: yes

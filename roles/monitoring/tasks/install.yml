@@ -1,0 +1,68 @@
+---
+- name: Create User
+  ansible.builtin.user:
+    name: '{{ _exporter_system_user }}'
+    groups: '{{ _exporter_system_group }}'
+    append: true
+    create_home: false
+    shell: /usr/sbin/nologin
+    home: /
+    system: true
+
+- tags: node_exporter
+  block:
+    - name: Download node_exporter Binary
+      become: false
+      ansible.builtin.get_url:
+        url: 'https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz'
+        dest: '/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz'
+        mode: 0644
+      delegate_to: localhost
+      check_mode: false
+
+    - name: Upack node_exporter Binary
+      become: false
+      ansible.builtin.unarchive:
+        src: '/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz'
+        dest: /tmp
+        creates: '/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}/node_exporter'
+      delegate_to: localhost
+      check_mode: false
+
+    - name: Propagate node_exporter Binaries
+      ansible.builtin.copy:
+        src: '/tmp/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}/node_exporter'
+        dest: '{{ _exporter_binary_install_dir }}/node_exporter'
+        mode: 0755
+        owner: root
+        group: root
+      notify: restart node_exporter
+
+- tags: mysqld_exporter
+  block:
+    - name: Download mysqld_exporter Binary
+      become: false
+      ansible.builtin.get_url:
+        url: 'https://github.com/prometheus/mysqld_exporter/releases/download/v{{ mysqld_exporter_version }}/mysqld_exporter-{{ mysqld_exporter_version }}.linux-{{ go_arch }}.tar.gz'
+        dest: '/tmp/mysqld_exporter-{{ mysqld_exporter_version }}.linux-{{ go_arch }}.tar.gz'
+        mode: 0644
+      delegate_to: localhost
+      check_mode: false
+
+    - name: Upack mysqld_exporter Binary
+      become: false
+      ansible.builtin.unarchive:
+        src: '/tmp/mysqld_exporter-{{ mysqld_exporter_version }}.linux-{{ go_arch }}.tar.gz'
+        dest: /tmp
+        creates: '/tmp/mysqld_exporter-{{ mysqld_exporter_version }}.linux-{{ go_arch }}/mysqld_exporter'
+      delegate_to: localhost
+      check_mode: false
+
+    - name: Propagate mysqld_exporter Binaries
+      ansible.builtin.copy:
+        src: '/tmp/mysqld_exporter-{{ mysqld_exporter_version }}.linux-{{ go_arch }}/mysqld_exporter'
+        dest: '{{ _exporter_binary_install_dir }}/mysqld_exporter'
+        mode: 0755
+        owner: root
+        group: root
+      notify: restart mysqld_exporter

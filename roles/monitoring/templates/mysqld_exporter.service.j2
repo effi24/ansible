@@ -1,0 +1,14 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Prometheus exporter for MySQL server
+Documentation=man:mysqld_exporter(1)
+
+[Service]
+Restart=on-failure
+User={{ _exporter_system_user }}
+EnvironmentFile=/etc/default/mysqld_exporter
+ExecStart={{ _exporter_binary_install_dir }}/mysqld_exporter $ARGS
+
+[Install]
+WantedBy=multi-user.target

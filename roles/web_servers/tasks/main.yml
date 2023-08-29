@@ -1,0 +1,13 @@
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: latest
+  when: ansible_os_family == 'Debian'
+  notify: start_enable_ngin
+  
+- name: Install Nginx (RHEL/CentOS)
+  yum:
+    name: nginx
+    state: latest
+  when: ansible_os_family == 'RedHat'
+  notify: start_enable_ngin

@@ -1,0 +1,5 @@
+node_exporter_version: 1.5.0
+mysqld_exporter_version: 0.14.0
+go_arch: arm64
+_mysql_db_user: root
+_mysql_db_password: a123456
