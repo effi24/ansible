@@ -21,10 +21,10 @@
   when: ansible_os_family == "Debian"  
 
 - name: DEBIAN | Ensure MySQL is running
-  ansible.builtin.systemd:
+  service:
     name: mysql
     state: started
-    enabled: true
+    enabled: yes
     daemon_reload: true
   tags: validate
   when: ansible_os_family == "Debian"
