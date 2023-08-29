@@ -45,13 +45,6 @@
   register: my_cnf
   become: true
 
-- name: Install MySQL client library
-  pip:
-    name: mysqlclient
-    state: present
-  become: true
-  when: ansible_python.version.major >= 3
-
 - name: Configure MySQL root account
   community.mysql.mysql_user:
     user: root
