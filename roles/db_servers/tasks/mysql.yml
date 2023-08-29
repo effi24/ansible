@@ -47,9 +47,10 @@
 
 - name: Install MySQL client library
   pip:
-    name: MySQLdb
+    name: mysqlclient
     state: present
-  become: true  
+  become: true
+  when: ansible_python.version.major >= 3
 
 - name: Configure MySQL root account
   community.mysql.mysql_user:
