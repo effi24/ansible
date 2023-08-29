@@ -27,7 +27,7 @@
 
 - name: Setup mysqld_exporter User
   community.mysql.mysql_user:
-    user: '{{ _mysqld_exporter_db_user }}'
+    name: '{{ _mysqld_exporter_db_user }}'
     password: '{{ _mysqld_exporter_db_password }}'
     # config_file: /etc/.exporter.cnf
     state: present
