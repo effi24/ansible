@@ -45,11 +45,6 @@
   register: my_cnf
   become: true
 
-- name: Install pip (if not already installed)
-  raw: sudo apt-get install -y python3-pip && sudo apt-get install python-pip
-  become: true
-  when: ansible_os_family == 'Debian'
-
 - name: Install MySQL client library
   pip:
     name: MySQLdb
