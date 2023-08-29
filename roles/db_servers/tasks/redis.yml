@@ -1,0 +1,15 @@
+- name: Install Redis
+  apt:
+    name: redis-server
+    state: latest
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+  notify: start_enable_redis
+  
+- name: Install Redis (RHEL/CentOS)
+  yum:
+    name: redis
+    state: latest
+    update_cache: yes
+  when: ansible_os_family == 'RedHat'
+  notify: start_enable_redis
