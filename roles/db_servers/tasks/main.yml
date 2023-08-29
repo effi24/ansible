@@ -8,9 +8,9 @@
   when: ansible_os_family == 'Debian'
   notify: start_enable_mysql
 
-- name: Setup repo for Mysql 5.7
+- name: Setup repo for Mysql 8.0 (RHEL/CentOS)
   yum:
-    name: http://repo.mysql.com/mysql80-community-release-el9-4.noarch.rpm
+    name: http://repo.mysql.com/mysql57-community-release-el7-10.noarch.rpm
     state: present
   when: ansible_os_family == 'RedHat'  
   
