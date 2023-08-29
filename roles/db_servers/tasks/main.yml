@@ -10,8 +10,11 @@
   
 - name: Install MySQL 8 (RHEL/CentOS)
   yum:
-    name: mysql-server
+    name:
+      - mysql-server
+      - mysql-devel
     state: latest
+    update_cache: yes
   when: ansible_os_family == 'RedHat'
   notify: start_enable_mysql
   
@@ -27,5 +30,6 @@
   yum:
     name: redis
     state: latest
+    update_cache: yes
   when: ansible_os_family == 'RedHat'
   notify: start_enable_redis
