@@ -25,7 +25,6 @@
     name: mysql
     state: started
     enabled: yes
-    daemon_reload: true
   tags: validate
   when: ansible_os_family == "Debian"
 
