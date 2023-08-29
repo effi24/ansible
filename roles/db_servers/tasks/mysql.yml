@@ -45,6 +45,25 @@
   register: my_cnf
   become: true
 
+- name: Install MySQL client library
+  pip:
+    name: mysqlclient
+    state: present
+  become: true
+
+- name: Install MySQL client library
+  pip:
+    name: PyMySQL
+    state: present
+  become: true
+
+# Or, if you decide to use MySQLdb for Python 2.x
+- name: Install MySQL client library
+  pip:
+    name: MySQLdb
+    state: present
+  become: true  
+
 - name: Configure MySQL root account
   community.mysql.mysql_user:
     user: root
