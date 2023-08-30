@@ -3,4 +3,3 @@
 
 - import_tasks: users-groups.yml
   become: true
-  include_vars: users.yml
