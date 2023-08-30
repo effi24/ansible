@@ -1,5 +1,13 @@
-- name: start_enable_prometheus
-  service:
-    name: prometheus
-    state: started
-    enabled: yes
+- name: restart node_exporter
+  become: true
+  systemd:
+    name: node_exporter
+    daemon_reload: true
+    state: restarted
+
+- name: restart mysqld_exporter
+  become: true
+  systemd:
+    name: mysqld_exporter
+    daemon_reload: true
+    state: restarted
