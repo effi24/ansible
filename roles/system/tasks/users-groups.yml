@@ -20,4 +20,3 @@
     createhome: "{{ item.createhome | default('yes') }}"
   with_items: "{{ server_users }}"
   no_log: "{{ server_users_no_log }}"
-  include_vars: users.yml

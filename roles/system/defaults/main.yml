@@ -2,3 +2,6 @@
 # defaults file for ansible-role-users
 server_users_no_log: true
 server_users_shell: "/bin/bash"
+server_users:
+  - name: "ash"
+    password: "imnotarobot"
