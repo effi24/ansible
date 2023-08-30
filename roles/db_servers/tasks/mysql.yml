@@ -56,7 +56,7 @@
 - name: restart mysql
   ansible.builtin.service:
     name: mysql
-    state: restarted
+    state: started
     enabled: yes    
 
 - name: Install pip
