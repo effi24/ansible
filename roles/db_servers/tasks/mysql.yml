@@ -53,11 +53,8 @@
   register: my_cnf
   become: true
 
-- name: restart mysql
-  ansible.builtin.service:
-    name: mysql
-    state: started
-    enabled: yes    
+- name: mysql restarted
+  command: service mysql restart   
 
 - name: Install pip
   apt:
