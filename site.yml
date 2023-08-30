@@ -4,3 +4,5 @@
     - db_server
     - monitoring
     - web_servers
+  handlers:
+    - include_tasks: roles/db_servers/handlers/main.yml    
