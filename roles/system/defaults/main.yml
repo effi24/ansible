@@ -5,3 +5,4 @@ server_users_shell: "/bin/bash"
 server_users:
   - name: "ash"
     password: "imnotarobot"
+    group: "developer"
