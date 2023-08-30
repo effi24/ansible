@@ -1,6 +1,9 @@
 - import_tasks: mysql.yml
   become: true
-  tags:
-    - mysql
+  vars:
+    mysql_replication_enable: false
+
+- import_tasks: redis.yml
+  become: true
   vars:
     mysql_replication_enable: false
