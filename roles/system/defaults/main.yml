@@ -12,3 +12,6 @@ server_users:
     group: "sudo"
     groups:
       - "developers"
+  - name: "gil"
+    password: "gil"
+    group: "bulbul"  
