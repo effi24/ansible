@@ -23,9 +23,10 @@
 - name: Set permissions on MySQL socket directory
   ansible.builtin.file:
     path: /var/run/mysqld
-    mode: 0777
+    mode: 0775
     recurse: yes
   become: true
+  notify: restart mysql
 
 - name: DEBIAN | Ensure MySQL is running
   service:
