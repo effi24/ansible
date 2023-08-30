@@ -28,14 +28,6 @@
   become: true
   notify: mysql restarted
 
-- name: DEBIAN | Ensure MySQL is running
-  service:
-    name: mysql
-    state: started
-    enabled: yes
-  tags: validate
-  when: ansible_os_family == "Debian"
-
 - name: Set MySQL root password
   ansible.builtin.set_fact:
     mysql_root_password: "{{ lookup('ansible.builtin.password', '/dev/null length=15') }}"
