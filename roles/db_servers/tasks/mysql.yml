@@ -14,7 +14,7 @@
     dest: /etc/mysql/mysql.conf.d/mysqld.cnf
     owner: 0
     group: 0
-    mode: 0640
+    mode: 0644
     validate: mysqld --defaults-file=%s --validate-config
     force: true
   notify: start_enable_mysql
