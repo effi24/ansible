@@ -43,12 +43,7 @@
     owner: 0
     group: 0
   register: my_cnf
-  become: true
-
-- name: mysql restarted
-  systemd:
-    name: mysql
-    state: started     
+  become: true    
 
 - name: Install pip
   apt:
