@@ -45,30 +45,15 @@
   register: my_cnf
   become: true
 
-# - name: Configure MySQL root account
-#   community.mysql.mysql_user:
-#     user: root
-#     password: '{{ mysql_root_password }}'
-#     login_unix_socket: /var/run/mysqld/mysqld.sock
-#     plugin: mysql_native_password
-#     config_file: '{{ "/root/.my.cnf" if not my_cnf.changed else "" }}'
-#     state: present
-#   become: true
-
-- name: Update mysql password for superuser `root`
+- name: Setting up root credentials
   mysql_user:
-    # Update the superuser to have all grants and a password
-    name: "root"
-    host: localhost
-    password: 'a123456'
-    priv: "*.*:ALL,GRANT"
-    # Login *as root* to perform this change, even though you might
-    # be altering the root user itself
+    name: root
+    password: "{{ _mysql_db_password }}"
     login_user: root
-    login_password: "a123456"
-    login_host: localhost
-    login_unix_socket: "/var/run/mysqld/mysqld.sock"
-    # As a good measure,have ansible check whether an implicit login
-    # is possible first
-    check_implicit_admin: yes
+    login_password: "{{ _mysql_db_password }}"
+    host: localhost
+    login_unix_socket: /var/lib/mysql/mysql.sock
+    priv: '*.*:ALL,GRANT'
+    check_implicit_admin: true 
+    state: present
   become: true  
