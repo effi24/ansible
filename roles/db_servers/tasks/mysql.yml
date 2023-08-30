@@ -60,7 +60,7 @@
     # Update the superuser to have all grants and a password
     name: "root"
     host: localhost
-    password: '{{ mysql_root_password }}'
+    password: 'a123456'
     priv: "*.*:ALL,GRANT"
     # Login *as root* to perform this change, even though you might
     # be altering the root user itself
