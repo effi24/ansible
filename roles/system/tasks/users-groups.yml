@@ -5,7 +5,6 @@
   with_items: "{{ server_users }}"
   no_log: "{{ server_users_no_log }}"
   when: (item.state | default('present')) == 'present'
-  include_vars: users.yml
 
 - name: Create server users.
   user:
