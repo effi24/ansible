@@ -1,17 +1,11 @@
-# defaults file for ansible-role-users
 server_users_no_log: true
 server_users_ssh_key_generate: yes
 server_users_ssh_key_bits: "4096"
 server_users_shell: "/bin/bash"
-
-# defaults for ansible config.
-server_users_ansible_role_path: '~/.ansible/roles'
 server_users_ansible_nocows: '1'
 server_users_ansible_log: false
-server_users_ansible_log_path: '~/ansible.log'
-
-# Internal variables
 _server_users_secondary_groups: []
+
 server_users:
   - name: "ash"
     password: "imnotarobot"
