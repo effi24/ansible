@@ -1,7 +1,7 @@
 - name: mysql restarted
   systemd:
     name: mysql
-    state: restartede
+    state: restarted
 
 - name: start_enable_redis
   systemd:
