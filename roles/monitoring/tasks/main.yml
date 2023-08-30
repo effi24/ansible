@@ -3,34 +3,14 @@
 - import_tasks: preflight.yml
   tags: mysqld_exporter
 
-- import_tasks: install.yml
+- import_tasks: node_exporter.yml
   become: true
 
-- import_tasks: configure.yml
+- import_tasks: mysqld_exporter.yml
   become: true
 
-- name: Ensure Node Exporter is enabled on boot
+- import_tasks: configure_node_exporter.yml
   become: true
-  systemd:
-    name: node_exporter
-    daemon_reload: true
-    enabled: true
-    state: started
 
-- name: Ensure MySQL Exporter is enabled on boot
-  become: true
-  systemd:
-    name: mysqld_exporter
-    daemon_reload: true
-    enabled: true
-    state: started
-
-- name: Setup mysqld_exporter User
-  community.mysql.mysql_user:
-    name: '{{ _mysqld_exporter_db_user }}'
-    password: '{{ _mysqld_exporter_db_password }}'
-    # config_file: /etc/.exporter.cnf
-    state: present
-    priv: '*.*:SELECT,PROCESS,REPLICATION CLIENT'
-  become: true
-  tags: mysqld_exporter
+- import_tasks: configure_mysqld_exporter.yml
+  become: true  
