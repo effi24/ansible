@@ -23,7 +23,7 @@
 - name: Set permissions on MySQL socket directory
   ansible.builtin.file:
     path: /var/run/mysqld
-    mode: 0774
+    mode: 0777
     recurse: yes
   become: true
   notify: restart mysql
