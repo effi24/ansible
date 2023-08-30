@@ -5,5 +5,5 @@
 
 - name: start_enable_redis
   systemd:
-    name: redis
+    name: redis restarted
     state: restarted    

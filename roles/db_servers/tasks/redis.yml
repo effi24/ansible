@@ -4,4 +4,4 @@
     state: latest
     update_cache: yes
   when: ansible_os_family == 'Debian'
-  notify: start_enable_redis
+  notify: redis restarted
