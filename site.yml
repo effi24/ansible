@@ -1,6 +1,7 @@
 - hosts: workstation
   become: true
   roles:
+    - update_packages
     - db_servers
     - monitoring
     - web_servers
