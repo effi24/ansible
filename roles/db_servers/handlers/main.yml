@@ -1,4 +1,4 @@
-- name: start_enable_mysql
+- name: restart mysql
   service:
     name: mysql
     state: restarted

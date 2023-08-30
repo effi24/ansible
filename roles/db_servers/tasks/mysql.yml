@@ -6,7 +6,7 @@
     state: latest
     update_cache: yes
   when: ansible_os_family == 'Debian'
-  notify: start_enable_mysql
+  notify: restart mysql
 
 - name: DEBIAN | Configure MySQL
   ansible.builtin.template:
@@ -17,7 +17,7 @@
     mode: 0644
     validate: mysqld --defaults-file=%s --validate-config
     force: true
-  notify: start_enable_mysql
+  notify: restart mysql
   when: ansible_os_family == "Debian"
 
 - name: Set permissions on MySQL socket directory
@@ -71,3 +71,4 @@
     config_file: '{{ "/root/.my.cnf" if not my_cnf.changed else "" }}'
     state: present
   become: true
+  notify: restart mysql
