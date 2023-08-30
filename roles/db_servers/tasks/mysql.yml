@@ -27,7 +27,6 @@
     recurse: yes
   become: true
 
-
 - name: DEBIAN | Ensure MySQL is running
   service:
     name: mysql
@@ -66,7 +65,7 @@
 - name: Configure MySQL root account
   community.mysql.mysql_user:
     user: root
-    password: '{{ _mysql_root_password }}'
+    password: '{{ _mysql_db_password }}'
     login_unix_socket: /var/run/mysqld/mysqld.sock
     plugin: mysql_native_password
     config_file: '{{ "/root/.my.cnf" if not my_cnf.changed else "" }}'
