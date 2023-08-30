@@ -1,0 +1,6 @@
+- import_tasks: update_packages.yml
+  become: true
+
+- import_tasks: users-groups.yml
+  become: true
+  include_vars: users.yml

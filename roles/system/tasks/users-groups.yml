@@ -1,0 +1,21 @@
+- name: Create server groups.
+  group:
+    name: "{{ item.group | default(item.name) }}"
+    state: present
+  with_items: "{{ server_users }}"
+  no_log: "{{ server_users_no_log }}"
+  when: (item.state | default('present')) == 'present'
+
+- name: Create server users.
+  user:
+    name: "{{ item.name }}"
+    password: "{{ item.password | default('') | password_hash('sha512') }}"
+    state: "{{ item.state | default('present') }}"
+    remove: "{{ item.remove | default('no') }}"
+    group: "{{ item.group | default(item.name) }}"
+    groups: "{{ item.groups | default('') }}"
+    shell: "{{ item.shell | default(server_users_shell) }}"
+    home: "{{ item.home | default(omit) }}"
+    createhome: "{{ item.createhome | default('yes') }}"
+  with_items: "{{ server_users }}"
+  no_log: "{{ server_users_no_log }}"
