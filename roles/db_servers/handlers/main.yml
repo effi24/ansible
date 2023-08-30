@@ -1,11 +1,9 @@
-- name: restart mysql
-  service:
+- name: mysql restarted
+  systemd:
     name: mysql
-    state: restarted
-    enabled: yes
+    state: restartede
 
 - name: start_enable_redis
-  service:
+  systemd:
     name: redis
-    state: restarted
-    enabled: yes    
+    state: restarted    

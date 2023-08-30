@@ -51,10 +51,7 @@
     owner: 0
     group: 0
   register: my_cnf
-  become: true
-
-- name: mysql restarted
-  command: service mysql restart   
+  become: true   
 
 - name: Install pip
   apt:
