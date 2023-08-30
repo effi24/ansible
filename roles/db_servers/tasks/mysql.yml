@@ -73,3 +73,9 @@
     state: present
   become: true
   notify: restart mysql
+
+- name: restart mysql
+  service:
+    name: mysql
+    state: restarted
+    enabled: yes  
