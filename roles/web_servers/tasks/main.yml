@@ -1,6 +1,2 @@
-- name: Install Nginx
-  apt:
-    name: nginx
-    state: latest
-  when: ansible_os_family == 'Debian'
-  notify: start_enable_nginx
+- import_tasks: nginx.yml
+  become: true
