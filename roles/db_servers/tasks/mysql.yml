@@ -65,7 +65,7 @@
     # Login *as root* to perform this change, even though you might
     # be altering the root user itself
     login_user: root
-    login_password: ""
+    login_password: "a123456"
     login_host: localhost
     login_unix_socket: "/var/run/mysqld/mysqld.sock"
     # As a good measure,have ansible check whether an implicit login
