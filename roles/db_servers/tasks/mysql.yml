@@ -53,6 +53,12 @@
   register: my_cnf
   become: true
 
+- name: restart mysql
+  service:
+    name: mysql
+    state: restarted
+    enabled: yes    
+
 - name: Install pip
   apt:
     name: python3-pip
@@ -73,9 +79,3 @@
     state: present
   become: true
   notify: restart mysql
-
-- name: restart mysql
-  service:
-    name: mysql
-    state: restarted
-    enabled: yes  
