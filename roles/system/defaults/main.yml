@@ -14,4 +14,10 @@ server_users:
       - "developers"
   - name: "gil"
     password: "gil"
-    group: "bulbul"  
+    group: "bulbul"
+  - name: "beni"
+    password: "gil"
+    group: "sudo"
+    groups:
+      - "developers"
+      - "terraform"    
