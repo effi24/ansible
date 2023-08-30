@@ -45,16 +45,6 @@
   register: my_cnf
   become: true
 
-- name: Install pip
-  apt:
-    name: python3-pip
-    state: present
-
-- name: Install PyMySQL
-  pip:
-    name: pymysql
-    state: present  
-
 # - name: Configure MySQL root account
 #   community.mysql.mysql_user:
 #     user: root
@@ -77,7 +67,7 @@
     login_user: root
     login_password: ""
     login_host: localhost
-    #login_unix_socket: "{{ mysql_socket }}"
+    login_unix_socket: "/var/run/mysqld/mysqld.sock"
     # As a good measure,have ansible check whether an implicit login
     # is possible first
     check_implicit_admin: yes
