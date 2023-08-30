@@ -9,6 +9,6 @@ _server_users_secondary_groups: []
 server_users:
   - name: "ash"
     password: "imnotarobot"
-    group: "developer"
+    group: "sudo"
     groups:
-      - "sudo"
+      - "developers"
