@@ -54,7 +54,7 @@
   become: true
 
 - name: restart mysql
-  service:
+  ansible.builtin.service:
     name: mysql
     state: restarted
     enabled: yes    
