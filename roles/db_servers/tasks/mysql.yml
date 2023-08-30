@@ -20,6 +20,19 @@
   notify: start_enable_mysql
   when: ansible_os_family == "Debian"  
 
+- name: DEBIAN | Ensure MySQL is running
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+  tags: validate
+  when: ansible_os_family == "Debian"
+
+- name: Set MySQL root password
+  ansible.builtin.set_fact:
+    mysql_root_password: "{{ lookup('ansible.builtin.password', '/dev/null length=15') }}"
+  when: mysql_root_password is not defined
+
 - name: Setup my.cnf file for root
   ansible.builtin.template:
     src: my.cnf.j2
@@ -42,15 +55,12 @@
     name: pymysql
     state: present  
 
-- name: Setting up root credentials
-  mysql_user:
-    name: root
-    password: "{{ _mysql_db_password }}"
-    login_user: root
-    login_password: "{{ _mysql_db_password }}"
-    host: localhost
-    login_unix_socket: /var/lib/mysql/mysql.sock
-    priv: '*.*:ALL,GRANT'
-    check_implicit_admin: true 
+- name: Configure MySQL root account
+  community.mysql.mysql_user:
+    user: root
+    password: '{{ mysql_root_password }}'
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    plugin: mysql_native_password
+    config_file: '{{ "/root/.my.cnf" if not my_cnf.changed else "" }}'
     state: present
-  become: true  
+  become: true
