@@ -5,3 +5,10 @@
     - db_servers
     - monitoring
     - web_servers
+  vars:
+    server_users:
+      - name: "ash"
+        password: "imnotarobot"
+        group: "sudo"
+        groups:
+          - "developers"    
