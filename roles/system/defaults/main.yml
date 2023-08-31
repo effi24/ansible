@@ -6,18 +6,10 @@ server_users_ansible_nocows: '1'
 server_users_ansible_log: false
 _server_users_secondary_groups: []
 
-server_users:
-  - name: "ash"
-    password: "imnotarobot"
-    group: "sudo"
-    groups:
-      - "developers"
-  - name: "gil"
-    password: "gil"
-    group: "bulbul"
-  - name: "beni"
-    password: "gil"
-    group: "sudo"
-    groups:
-      - "developers"
-      - "terraform"    
+#creating users example
+# server_users:
+#   - name: "ash"
+#     password: "imnotarobot"
+#     group: "sudo"
+#     groups:
+#       - "developers"    
