@@ -7,9 +7,9 @@ server_users_ansible_log: false
 _server_users_secondary_groups: []
 
 #creating users example
-# server_users:
-#   - name: "ash"
-#     password: "imnotarobot"
-#     group: "sudo"
-#     groups:
-#       - "developers"    
+server_users:
+  - name: "ash"
+    password: "imnotarobot"
+    group: "sudo"
+    groups:
+      - "developers"    
