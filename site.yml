@@ -11,4 +11,4 @@
         password: "imnotarobot"
         group: "sudo"
         groups:
-          - "developers"    
+          - "developers"
